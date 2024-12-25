@@ -29,7 +29,7 @@ public class MoneyTransferTest {
         val dashboardPage = new DashboardPage();
         val firstCardBalanceStart = dashboardPage.getFirstCardBalance();
         val secondCardBalanceStart = dashboardPage.getSecondCardBalance();
-        int amount = 2_761;
+        int amount = firstCardBalanceStart / 2; // Сумма определяется автоматически
 
         val transactionPage = pushSecondCardButton();
         transactionPage.transferMoney(amount, getFirstCardNumber());
@@ -45,7 +45,7 @@ public class MoneyTransferTest {
         val dashboardPage = new DashboardPage();
         val firstCardBalanceStart = dashboardPage.getFirstCardBalance();
         val secondCardBalanceStart = dashboardPage.getSecondCardBalance();
-        int amount = 928;
+        int amount = secondCardBalanceStart / 3; // Сумма определяется автоматически
 
         val transactionPage = pushFirstCardButton();
         transactionPage.transferMoney(amount, getSecondCardNumber());
@@ -58,7 +58,10 @@ public class MoneyTransferTest {
 
     @Test
     public void shouldNotTransferMoneyIfAmountExceedsCardBalance() {
-        int amount = 28_500;
+        val dashboardPage = new DashboardPage();
+        val firstCardBalanceStart = dashboardPage.getFirstCardBalance();
+        int amount = firstCardBalanceStart + 10_000; // Сумма превышает остаток
+
         val transactionPage = pushSecondCardButton();
         transactionPage.transferMoney(amount, getFirstCardNumber());
         transactionPage.getErrorLimit();
@@ -66,7 +69,10 @@ public class MoneyTransferTest {
 
     @Test
     public void shouldBeGetErrorIfSameCard() {
-        int amount = 777;
+        val dashboardPage = new DashboardPage();
+        val firstCardBalanceStart = dashboardPage.getFirstCardBalance();
+        int amount = firstCardBalanceStart / 4; // Сумма определяется автоматически
+
         val transactionPage = pushFirstCardButton();
         transactionPage.transferMoney(amount, getFirstCardNumber());
         transactionPage.getErrorInvalidCard();

@@ -23,8 +23,7 @@ public class VerificationPage {
     public  DashboardPage validVerify(DataHelper.VerificationCode verificationCode) {
         codeField.shouldBe(Condition.visible, Duration.ofSeconds(10));
         codeField.setValue(verificationCode.getCode());
-        verifyButton.shouldBe(Condition.enabled, Duration.ofSeconds(10));
-        verifyButton.click();
+        verifyButton.shouldBe(Condition.enabled, Duration.ofSeconds(10)).click();
         codeField.sendKeys(verificationCode.getCode());
         return new DashboardPage();
     }
